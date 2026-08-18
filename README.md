@@ -1,5 +1,8 @@
 # AirResilience
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22001444.svg)](https://doi.org/10.5281/zenodo.22001444)
+[![tests](https://github.com/VaibhavSharma-IIMA/AirResilience/actions/workflows/tests.yml/badge.svg)](https://github.com/VaibhavSharma-IIMA/AirResilience/actions/workflows/tests.yml)
+
 A configurable simulator for disruption propagation in **airline operations**,
 with a standard trace format and a browser viewer that needs no installation.
 
@@ -12,9 +15,15 @@ you write.
 Requires Python 3.10 or later. Runs on Linux, macOS and Windows. No compilation
 step and no required dependencies.
 
-**Citing this work.** See [`CITATION.cff`](CITATION.cff), or use the "Cite this
-repository" button on GitHub. If you use the software in published work, please
-cite the accompanying SoftwareX article as well as the archived release.
+**Citing this work.** Use the "Cite this repository" button on GitHub, or
+[`CITATION.cff`](CITATION.cff) directly. The archived release is:
+
+> Narayanaswami, S. and Sharma, V. (2026). *AirResilience: configurable
+> simulation of disruption propagation in scheduled operations*, version 1.0.0.
+> Zenodo. https://doi.org/10.5281/zenodo.22001444
+
+If you use the software in published work, please cite the accompanying
+SoftwareX article as well as this release.
 
 ---
 

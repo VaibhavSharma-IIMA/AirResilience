@@ -4,7 +4,7 @@
   "name": "AirResilience",
   "description": "Configuration-driven discrete-event simulation of disruption propagation in timetabled operations, with declarative duty-time rules, a portable trace format carrying parameter provenance, and a dependency-free browser viewer. Validated against US DOT BTS On-Time Performance data.",
   "version": "1.0.0",
-  "identifier": "https://doi.org/10.5281/zenodo.XXXXXXX",
+  "identifier": "https://doi.org/10.5281/zenodo.22001444",
   "dateCreated": "2026-01-05",
   "datePublished": "2026-08-14",
   "programmingLanguage": [
