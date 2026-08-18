@@ -44,7 +44,7 @@ FILES = [
 # Anything matching these is still a placeholder.
 PLACEHOLDERS = {
     "repository": re.compile(r"GROUP-G-IIMA"),
-    "Zenodo DOI": re.compile(r"zenodo\.XXXXXXX"),
+    "Zenodo DOI": re.compile(r"zenodo\.(XXXXXXX|NNNNNNN)"),
     "article DOI": re.compile(r"softx\.XXXX\.XXXXXX"),
     "AI declaration": re.compile(r"\[TOOL NAME AND VERSION\]|\[PURPOSE\]"),
     "ORCID": re.compile(r"0000-0000-0000-0000"),

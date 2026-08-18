@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Sundaravalli Narayanaswami and Vaibhav Sharma
 """
-Adapter: IndiGo case-study engine -> AirResilience trace.
+Worked example: adapting an outside simulator to the AirResilience trace format.
 
-This module is deliberately the *only* place that knows both the case-study
-engine and the trace format. The engine does not import the trace layer, and the
-trace layer does not import the engine. Adapting any other simulator to the
-viewer means writing a file like this one and nothing else.
+The simulator adapted here is `reference/indigo_model.py`, a self-contained
+implementation of the hub case that knows nothing about this framework. That is
+the point: it stands in for any simulator someone else has already written.
+
+This module is the only place that knows both that simulator and the trace
+format. Neither imports the other. Adapting a different simulator to the viewer
+and the analysis tools means writing one file like this and nothing else.
 
 Run:
     python indigo_adapter.py            # writes the standard example traces
@@ -34,7 +37,7 @@ try:
     )
 except ModuleNotFoundError:
     sys.exit(
-        "This adapter wraps the original case-study engine, which lives in\n"
+        "This adapter wraps the standalone simulator in\n"
         f"{ROOT / 'reference'}. It is only an example of adapting a foreign\n"
         "simulator. To emit traces from the framework itself, use:\n\n"
         "    python run.py configs/indigo_bom.yaml --trace out.trace.json")

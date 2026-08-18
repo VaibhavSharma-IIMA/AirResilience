@@ -6,7 +6,7 @@ with a standard trace format and a browser viewer that needs no installation.
 Built for airline operations. The engine is configuration-driven throughout:
 network, fleet, crew, schedule and duty-time rules are all declared in a file,
 so a carrier, a regulator or a network shape is a configuration rather than a
-code change. The December 2025 Indigo Mumbai hub study is one such file among however many
+code change. The December 2025 hub study is one such file among however many
 you write.
 
 Requires Python 3.10 or later. Runs on Linux, macOS and Windows. No compilation
@@ -43,7 +43,8 @@ Both suites run in a few seconds on a current machine and need no dependencies.
 
 Then, for the analysis layer (about four minutes):
 
-    python examples/analysis_demo.py
+    python examples/analysis_demo.py                     # the hub study
+    python examples/analysis_demo.py --spec mystudy.json  # any other study
 
 which runs a blind calibration, a Shapley attribution and a structural sweep.
 
@@ -110,6 +111,12 @@ API is built to make the process visible rather than convenient.
                  Target("cancel_pct.3", 27.6, tolerance=5.0, fitted=False)],
         seeds=range(101, 107))
     print(fit(cfg, spec).report())
+
+Target values are observations of the operation being modelled. They are inputs
+to a study, not properties of the software, and the framework does not supply
+them: record where each came from, because a fitted parameter is only as good as
+the numbers it was fitted to. The study spec used by `examples/analysis_demo.py`
+keeps them in one file with a note against each.
 
 Three things are enforced rather than documented:
 
@@ -220,11 +227,12 @@ Adapting a foreign simulator means writing one adapter and nothing else; see
 
     python tests/test_parity.py
 
-The configurable engine is checked against the original case-study
-implementation in `reference/`, which is itself verified leg-for-leg against an
-independent JavaScript reference. **931 assertions across 20 scenarios and 40,040 leg
-comparisons**, spanning four seeds, three standby levels, both roster modes and
-two regulations. Agreement is exact, down to individual departure times.
+The engine is checked against the fixed reference implementation of the hub case
+in `reference/`, which serves as a test oracle. **931 assertions across 20
+scenarios and 40,040 leg comparisons**, spanning four seeds, three standby
+levels, both roster modes and two rule sets. Agreement is exact, down to
+individual departure times, so a change that alters unrelated behaviour is
+caught immediately.
 
 `tests/test_units.py` covers what parity cannot: 40 cases over the trace
 validator, configuration checks, the rule DSL, CSV ingest, engine invariants,
@@ -313,7 +321,8 @@ One honest caveat. The demonstration case uses a **synthetic timetable** and a
 **reconstructed** rule set, so its numbers illustrate a mechanism rather than
 measure an airline.
 
-Nothing in the engine assumes hub-and-spoke. Two configurations ship:
+The engine takes the network as data, so hub-and-spoke and point-to-point are
+both just configurations. Two ship:
 
 | Config | Shape | Schedule |
 |---|---|---|

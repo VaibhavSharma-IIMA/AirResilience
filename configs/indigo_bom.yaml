@@ -92,6 +92,9 @@ conditions:
   1: [fog]
   2: [fog]
 
+# Calendar labels for the modelled week, used by the viewer and the day table.
+day_labels: ["2 Dec", "3 Dec", "4 Dec", "5 Dec", "6 Dec", "7 Dec", "8 Dec"]
+
 parameters:
   - {name: fdtl_cut, value: 1.7, unit: hours, provenance: calibrated,
      note: Fitted jointly with congestion feedback to four published outcomes}

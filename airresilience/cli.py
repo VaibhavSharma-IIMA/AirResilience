@@ -16,7 +16,6 @@ from .model import load_experiment
 from .engine import Simulator
 from .emit import emit
 
-DAY_LABELS = ["2 Dec", "3 Dec", "4 Dec", "5 Dec", "6 Dec", "7 Dec", "8 Dec"]
 
 
 def parse_seeds(spec: str) -> list[int]:
@@ -88,7 +87,9 @@ def main() -> None:
               f"{'stranded':>9} {'callouts':>9}")
         print("-" * 60)
         for d in r.days:
-            print(f"{DAY_LABELS[d.day] if d.day < len(DAY_LABELS) else d.day:>5} "
+            labels = base.day_labels
+            label = labels[d.day] if d.day < len(labels) else str(d.day + 1)
+            print(f"{label:>5} "
                   f"{d.legs:>6} {d.cancelled:>10} {d.cancel_pct:>7.1f}% "
                   f"{d.otp_pct:>8.1f}% {d.stranded_overnight:>9} {d.standby_callouts:>9}")
         s = r.summary()
@@ -98,7 +99,7 @@ def main() -> None:
         print(f"      by reason: " + ", ".join(f"{k} {v}" for k, v in s["by_reason"].items()))
 
     if a.trace:
-        p = emit(runs[0], day_labels=DAY_LABELS).write(a.trace)
+        p = emit(runs[0], day_labels=base.day_labels or None).write(a.trace)
         print(f"\ntrace written to {p} ({p.stat().st_size/1024:.0f} KB)")
 
 

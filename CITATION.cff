@@ -17,10 +17,11 @@ contact:
   - email: "sundaravallin@iima.ac.in"
     family-names: Narayanaswami
     given-names: Sundaravalli
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.XXXXXXX"
-    description: "Archived release used for the SoftwareX article"
+# Filled in after the first Zenodo release, which is what mints the DOI:
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.NNNNNNN"
+#     description: "Archived release used for the SoftwareX article"
 keywords:
   - discrete-event simulation
   - resilience

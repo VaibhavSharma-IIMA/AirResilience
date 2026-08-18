@@ -237,6 +237,7 @@ class ExperimentConfig:
     seed: int = 1
     conditions: dict[int, list[str]] = field(default_factory=dict)   # day -> ["fog", ...]
     parameters: list[dict[str, Any]] = field(default_factory=list)   # provenance declarations
+    day_labels: list[str] = field(default_factory=list)  # e.g. ["2 Dec", ...]; days are numbered if unset
     description: str = ""
 
     def validate(self) -> "ExperimentConfig":
@@ -248,6 +249,9 @@ class ExperimentConfig:
         if not 0 <= self.policy.standby_pct <= 100:
             raise ValueError("policy.standby_pct must be a percentage")
         self.crew.resolve_units(self.fleet.count)
+        if self.day_labels and len(self.day_labels) != self.days:
+            raise ValueError(
+                f"day_labels has {len(self.day_labels)} entries but days is {self.days}")
         if self.schedule.source == "file" and not self.schedule.path:
             raise ValueError("schedule.source is 'file' but no path was given")
         return self
@@ -299,6 +303,7 @@ def load_experiment(path: str | pathlib.Path) -> ExperimentConfig:
         regulation=reg, baseline_regulation=baseline, policy=policy,
         days=int(d.get("days", 7)), seed=int(d.get("seed", 1)),
         conditions=conditions, parameters=list(d.get("parameters", [])),
+        day_labels=list(d.get("day_labels", [])),
         description=d.get("description", ""),
     )
     return cfg.validate()

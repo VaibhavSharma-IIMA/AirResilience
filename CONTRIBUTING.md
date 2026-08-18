@@ -10,8 +10,9 @@ reference implementation in `reference/indigo_model.py`, comparing 40,040
 individual legs across 20 scenarios on state, cause and realised departure time.
 Agreement is exact.
 
-That suite is the evidence that the published case study is one configuration of
-a general tool rather than a special case wired into the code.
+That suite is what makes the engine safe to change: a configuration-driven
+simulator has many ways to be subtly wrong that still produce plausible totals,
+and exact leg-level agreement catches them.
 **Run it after any change to the engine, the rule DSL or the scheduler.** If a
 change makes it fail, the change is either wrong or it is a deliberate revision
 of the model, in which case say so explicitly in the pull request and explain
