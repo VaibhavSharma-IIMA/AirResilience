@@ -161,17 +161,23 @@ class RuleSet:
         return cls(**{k: v for k, v in d.items() if k in known})
 
     def describe(self) -> str:
+        """A one-line summary of the rules in force.
+
+        Deliberately ASCII: this string is printed to the console, and Windows
+        terminals default to a code page that cannot encode typographic
+        symbols, which turns a summary line into a crash.
+        """
         bits = [f"{self.name}"]
         if self.max_duty_minutes:
-            bits.append(f"duty \u2264 {self.max_duty_minutes/60:g} h")
+            bits.append(f"duty <= {self.max_duty_minutes/60:g} h")
         if self.max_legs_per_duty:
-            bits.append(f"\u2264 {self.max_legs_per_duty} legs")
+            bits.append(f"<= {self.max_legs_per_duty} legs")
         if self.min_rest_minutes:
-            bits.append(f"rest \u2265 {self.min_rest_minutes/60:g} h")
+            bits.append(f"rest >= {self.min_rest_minutes/60:g} h")
         for r in self.rolling:
-            bits.append(f"\u2264 {r.max_duty_minutes/60:g} h per {r.days} d")
+            bits.append(f"<= {r.max_duty_minutes/60:g} h per {r.days} d")
         if self.night and self.night.duty_penalty_minutes:
-            bits.append(f"night \u2212{self.night.duty_penalty_minutes} min")
+            bits.append(f"night -{self.night.duty_penalty_minutes} min")
         if self.weekly_rest_days:
             bits.append(f"{self.weekly_rest_days} day(s) off in 7")
         return "; ".join(bits)

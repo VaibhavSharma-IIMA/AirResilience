@@ -284,7 +284,7 @@ def load_schedule_csv(path: str) -> list[FlightLeg]:
     """
     import csv
     legs: list[FlightLeg] = []
-    with open(path, newline="") as fh:
+    with open(path, newline="", encoding="utf-8") as fh:
         for i, row in enumerate(csv.DictReader(fh)):
             sd = row["scheduled_departure"].strip()
             minutes = (int(sd.split(":")[0]) * 60 + int(sd.split(":")[1])) if ":" in sd else int(sd)

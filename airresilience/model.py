@@ -263,7 +263,7 @@ class ExperimentConfig:
 
 def _read_structured(path: str | pathlib.Path) -> dict:
     p = pathlib.Path(path)
-    text = p.read_text()
+    text = p.read_text(encoding="utf-8")
     if p.suffix.lower() in (".yaml", ".yml"):
         if not _HAVE_YAML:
             raise RuntimeError(
@@ -329,7 +329,7 @@ def dump_experiment(cfg: ExperimentConfig, path: str | pathlib.Path) -> pathlib.
     p = pathlib.Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     if p.suffix.lower() in (".yaml", ".yml") and _HAVE_YAML:
-        p.write_text(yaml.safe_dump(d, sort_keys=False))
+        p.write_text(yaml.safe_dump(d, sort_keys=False), encoding="utf-8")
     else:
-        p.write_text(json.dumps(d, indent=2))
+        p.write_text(json.dumps(d, indent=2), encoding="utf-8")
     return p

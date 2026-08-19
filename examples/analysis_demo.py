@@ -158,7 +158,7 @@ def main() -> int:
     ap.add_argument("--config", help="override the configuration named in the spec")
     args = ap.parse_args()
 
-    study = json.loads(pathlib.Path(args.spec).read_text())
+    study = json.loads(pathlib.Path(args.spec).read_text(encoding="utf-8"))
     cfg = load_experiment(ROOT / (args.config or study["config"]))
     print(f"configuration: {cfg.name}")
     print(f"study spec:    {pathlib.Path(args.spec).name}")

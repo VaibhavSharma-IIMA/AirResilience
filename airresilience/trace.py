@@ -262,7 +262,8 @@ class TraceBuilder:
         p = pathlib.Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
         validate(self.to_dict())
-        p.write_text(json.dumps(self.to_dict(), separators=(",", ":"), indent=indent))
+        p.write_text(json.dumps(self.to_dict(), separators=(",", ":"), indent=indent),
+                 encoding="utf-8")
         return p
 
 
@@ -322,7 +323,7 @@ def validate(trace: dict) -> dict:
 
 def read(path: str | pathlib.Path) -> dict:
     """Load and validate a trace from disk."""
-    return validate(json.loads(pathlib.Path(path).read_text()))
+    return validate(json.loads(pathlib.Path(path).read_text(encoding="utf-8")))
 
 
 def summarise(trace: dict) -> dict:

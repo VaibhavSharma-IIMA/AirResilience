@@ -10,14 +10,14 @@ import json, pathlib, sys, argparse
 HERE = pathlib.Path(__file__).resolve().parent
 
 def bundle(traces, out, title=None):
-    html = (HERE / "viewer.html").read_text()
-    payload = json.dumps([json.loads(pathlib.Path(t).read_text()) for t in traces],
+    html = (HERE / "viewer.html").read_text(encoding="utf-8")
+    payload = json.dumps([json.loads(pathlib.Path(t).read_text(encoding="utf-8")) for t in traces],
                          separators=(",", ":"))
     html = html.replace('<script id="embedded" type="application/json">null</script>',
                         f'<script id="embedded" type="application/json">{payload}</script>')
     if title:
         html = html.replace("<title>AirResilience · trace viewer</title>", f"<title>{title}</title>")
-    pathlib.Path(out).write_text(html)
+    pathlib.Path(out).write_text(html, encoding="utf-8")
     return pathlib.Path(out)
 
 if __name__ == "__main__":

@@ -42,7 +42,7 @@ from airresilience.engine import RESOURCE_OUT_OF_POSITION             # noqa: E4
 def _read_json(base: pathlib.Path):
     """Accept either a plain file or a gzipped one, so shipped data stays small."""
     if base.exists():
-        return json.loads(base.read_text())
+        return json.loads(base.read_text(encoding="utf-8"))
     gz = base.with_suffix(base.suffix + ".gz")
     if gz.exists():
         import gzip
@@ -148,7 +148,7 @@ def main() -> None:
         L += ["", "Crew constraints disabled. Weather and airspace cancellations are",
               "injected as given; carrier-coded cancellations are the target.",
               "Nothing is fitted."]
-        pathlib.Path(a.report).write_text("\n".join(L))
+        pathlib.Path(a.report).write_text("\n".join(L), encoding="utf-8")
         print(f"report written to {a.report}")
 
 

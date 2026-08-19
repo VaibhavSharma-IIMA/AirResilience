@@ -333,7 +333,7 @@ def build_rotations(rows: list[dict], hub: str | None = None,
 
 
 def write_schedule_csv(rot: dict, path: pathlib.Path) -> None:
-    with path.open("w", newline="") as fh:
+    with path.open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["aircraft", "origin", "destination", "scheduled_departure",
                     "block_minutes", "day", "sequence", "id"])
@@ -411,7 +411,7 @@ def write_config(rot: dict, out: pathlib.Path, name: str, hub: str) -> None:
         "     note: No public data records crew assignment; not validated}",
         "",
     ]
-    (out / "config.yaml").write_text("\n".join(lines))
+    (out / "config.yaml").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
@@ -445,13 +445,13 @@ def main() -> None:
     out = pathlib.Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     write_schedule_csv(rot, out / "schedule.csv")
-    json.dump(rot["observed"], (out / "observed.json").open("w"))
+    json.dump(rot["observed"], (out / "observed.json").open("w", encoding="utf-8"))
     # Weather and airspace cancellations are decisions taken outside the
     # operator's control loop, largely in advance of the flight. They are the
     # trigger, not the cascade, so they are handed to the model as given.
     exo = sorted(int(k) for k, v in rot["observed"].items()
                  if v["cancelled"] and v["code"] in ("weather", "national air system"))
-    json.dump(exo, (out / "exogenous.json").open("w"))
+    json.dump(exo, (out / "exogenous.json").open("w", encoding="utf-8"))
     print(f"  exogenous        {len(exo):,} weather/airspace cancellations "
           f"(given to the model, not predicted by it)")
     name = a.name or f"bts-{a.carrier or 'all'}-{a.origin_hub}-{rot['dates'][0]}"

@@ -17,6 +17,21 @@ from .engine import Simulator
 from .emit import emit
 
 
+def _make_stdout_safe() -> None:
+    """Never let a printable character abort a run.
+
+    Console output here is ASCII by design, but a configuration's own name or
+    description comes from the user's file and may not be. On Windows the
+    console defaults to a legacy code page, where printing such a string raises
+    UnicodeEncodeError and the run dies after the work is done. Ask for UTF-8,
+    and fall back to replacing what cannot be encoded.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError, OSError):
+            pass
+
 
 def parse_seeds(spec: str) -> list[int]:
     if "-" in spec:
@@ -33,6 +48,7 @@ def configure(base, seed=None, standby=None, roster=None):
 
 
 def main() -> None:
+    _make_stdout_safe()
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("config")
