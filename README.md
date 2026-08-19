@@ -29,10 +29,11 @@ SoftwareX article as well as this release.
 
 ## Install
 
-    pip install -e .            # or: pip install -e ".[yaml]" for YAML configs
+    pip install -e .
 
-The engine, trace format and viewer need only the standard library. PyYAML is
-optional; configs may be JSON instead. Installing gives you an `airresilience`
+The only dependency is PyYAML, which the shipped configurations need and pip
+installs for you. Nothing else is required: the engine, the trace format and the
+viewer use the standard library alone. Installing gives you an `airresilience`
 command; without installing, `python run.py` does the same thing.
 
 ## Five minute demo
@@ -40,7 +41,7 @@ command; without installing, `python run.py` does the same thing.
     python tests/test_parity.py            # 931 checks
     python tests/test_units.py             # 40 cases
 
-Both suites run in a few seconds on a current machine and need no dependencies.
+Both suites run in a few seconds on a current machine.
 
     python run.py configs/indigo_bom.yaml                  # one week, day by day
     python run.py configs/indigo_bom.yaml --sweep standby 0 4 8 12 20 --seeds 101-110
@@ -246,11 +247,11 @@ caught immediately.
 `tests/test_units.py` covers what parity cannot: 40 cases over the trace
 validator, configuration checks, the rule DSL, CSV ingest, engine invariants,
 calibration guardrails and the Shapley decomposition. Both suites run under
-pytest or standalone with no dependencies.
+pytest or standalone.
 
 Both suites run in continuous integration on every push, across Python 3.10 to
-3.13 on Linux and on 3.12 for macOS and Windows, installed with no extras so
-that the zero-dependency claim is tested rather than asserted. See
+3.13 on Linux and on 3.12 for macOS and Windows, so the supported-version claim
+is tested rather than asserted. See
 [`.github/workflows/tests.yml`](.github/workflows/tests.yml).
 
 The parity test also confirms the engine reproduces the figures reported in the
@@ -285,7 +286,7 @@ passenger-level outcomes. The first of these is the clearest gap; see
 
 ## Licence and contributing
 
-MIT, see [`LICENSE`](LICENSE). Every source file carries an SPDX header.
+MIT, see [`LICENSE.txt`](LICENSE.txt). Every source file carries an SPDX header.
 Contributions are welcome; see [`CONTRIBUTING.md`](CONTRIBUTING.md) for how the
 parity suite constrains changes to the engine.
 

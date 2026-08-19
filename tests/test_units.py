@@ -8,7 +8,7 @@ These tests cover everything parity cannot: that invalid input is rejected, that
 the contracts hold at their boundaries, and that the analysis layer computes what
 it claims to.
 
-Runs under pytest, or standalone with no dependencies:
+Runs under pytest, or standalone:
 
     python tests/test_units.py
     pytest tests/test_units.py -q

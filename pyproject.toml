@@ -31,10 +31,10 @@ classifiers = [
   "Topic :: Scientific/Engineering",
 ]
 
-# The engine, the trace format and the viewer need nothing but the standard
-# library. That is deliberate: a reviewer or a reader should be able to run this
-# without resolving a dependency tree.
-dependencies = []
+# PyYAML is required because the shipped configurations are YAML. Nothing else
+# is: the engine, the trace format and the viewer use only the standard library,
+# so installing this resolves a single well-known package and no tree beneath it.
+dependencies = ["PyYAML>=6.0"]
 
 [project.urls]
 Homepage = "https://github.com/VaibhavSharma-IIMA/AirResilience"
@@ -43,8 +43,7 @@ Issues = "https://github.com/VaibhavSharma-IIMA/AirResilience/issues"
 Documentation = "https://github.com/VaibhavSharma-IIMA/AirResilience#readme"
 
 [project.optional-dependencies]
-yaml = ["PyYAML>=6.0"]      # configs may be JSON instead
-dev  = ["PyYAML>=6.0", "pytest>=7.0"]
+dev = ["pytest>=7.0"]
 
 [project.scripts]
 airresilience = "airresilience.cli:main"

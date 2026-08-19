@@ -267,8 +267,10 @@ def _read_structured(path: str | pathlib.Path) -> dict:
     if p.suffix.lower() in (".yaml", ".yml"):
         if not _HAVE_YAML:
             raise RuntimeError(
-                f"{p.name} is YAML but PyYAML is not installed. "
-                "Install it, or convert the file to JSON, which needs no dependency.")
+                f"{p.name} is YAML but PyYAML is not installed. PyYAML is a "
+                "declared dependency, so this usually means the package was not "
+                "installed: run 'pip install -e .' from the repository root. "
+                "JSON configurations are read without it.")
         return yaml.safe_load(text)
     return json.loads(text)
 

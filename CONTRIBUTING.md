@@ -34,9 +34,8 @@ python tests/test_units.py            # 40 cases
 python scripts/add_license_headers.py --check
 ```
 
-No dependencies are required. PyYAML is needed only for YAML configuration
-files; configurations may be written as JSON instead. Continuous integration
-runs the same commands on Python 3.10 to 3.13.
+PyYAML is the only dependency and `pip install -e .` provides it. Continuous
+integration runs the same commands on Python 3.10 to 3.13.
 
 ## What a good change looks like
 
@@ -62,4 +61,4 @@ it records every leg, every event and the provenance of every parameter.
 ## Licence
 
 By contributing you agree that your contributions are licensed under the MIT
-Licence, as in [`LICENSE`](LICENSE).
+Licence, as in [`LICENSE.txt`](LICENSE.txt).
